@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.daily.model.request.CreateEntryRequest;
+import com.project.daily.model.request.UpdateEntryRequest;
 import com.project.daily.model.response.EntryResponse;
 import com.project.daily.services.EntryService;
 
@@ -40,6 +42,15 @@ public class EntryController {
     public ResponseEntity<EntryResponse> create(@RequestBody CreateEntryRequest request) {
         EntryResponse entry = entryService.create(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(entry);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<EntryResponse> update(
+            @PathVariable Long id,
+            @RequestBody UpdateEntryRequest request) {
+
+        EntryResponse entry = entryService.update(id, request);
+        return ResponseEntity.ok(entry);
     }
 
     @DeleteMapping("/{id}")

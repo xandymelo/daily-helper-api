@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.project.daily.model.entities.Entry;
 import com.project.daily.model.entities.Member;
 import com.project.daily.model.request.CreateEntryRequest;
+import com.project.daily.model.request.UpdateEntryRequest;
 import com.project.daily.model.response.EntryResponse;
 import com.project.daily.repositories.EntryRepository;
 
@@ -48,6 +49,17 @@ public class EntryService {
         entry.setMember(loggedUser);
         Entry saved = entryRepository.save(entry);
         return toResponse(saved);
+    }
+
+    public EntryResponse update(Long id, UpdateEntryRequest request) {
+        Entry entry = entryRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Entry not found"));
+
+        entry.setResolved(request.isResolved());
+
+        Entry updated = entryRepository.save(entry);
+
+        return toResponse(updated);
     }
 
     public void delete(Long id) {
