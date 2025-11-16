@@ -41,7 +41,7 @@ public class EntryService {
         Entry entry = new Entry();
 
         entry.setDescription(request.getDescription());
-        entry.setResolved(request.isResolved());
+        entry.setResolved(false);
         entry.setType(request.getType());
         entry.setCreatedAt(LocalDateTime.now());
         Member loggedUser = authService.getLoggedUser();

@@ -10,6 +10,5 @@ import lombok.Getter;
 public class CreateEntryRequest {
     private EntryTypeEnum type;
     private String description;
-    private boolean resolved;
 }
 
